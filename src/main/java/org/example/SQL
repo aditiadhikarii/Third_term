@@ -1,0 +1,44 @@
+1. CREATE TABLE Statements
+
+
+CREATE TABLE Department (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(100) NOT NULL,
+    DeptID INT,
+    Salary DECIMAL(10,2) CHECK (Salary > 0),
+    JoiningDate DATE NOT NULL,
+    FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+);
+
+2.INSERT DATA
+
+INSERT INTO Department (DeptID, DeptName) VALUES (1, 'HR'), (2, 'IT');
+INSERT INTO Employee (EmpID, EmpName, DeptID, Salary, JoiningDate) VALUES
+    (101, 'Smarika Regmi', 1, 50000.00, '2023-06-15'),
+    (102, 'Rohan Basnet', 2, 70000.00, '2022-08-20');
+
+3.SELECT STATEMENTS
+
+a.
+SELECT * FROM Employee;
+
+b.
+SELECT E.* FROM Employee E
+JOIN Department D ON E.DeptID = D.DeptID
+WHERE D.DeptName = 'IT';
+
+c.
+SELECT EmpID AS Employee_ID, EmpName AS Employee_Name, Salary AS Monthly_Salary FROM Employee;
+
+d.
+SELECT SUM(Salary) AS Total_Salary_Expenses FROM Employee;
+
+e.
+SELECT E.EmpID, E.EmpName, D.DeptName, E.Salary
+FROM Employee E
+JOIN Department D ON E.DeptID = D.DeptID;
